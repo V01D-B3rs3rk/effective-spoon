@@ -1,0 +1,92 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Canvas para las partículas de corazón */
+#heartCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;
+}
+
+/* Overlay para el texto animado */
+#textOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Texto animado */
+#animatedText {
+    font-size: 5vw;
+    font-weight: bold;
+    color: #ff8c00; /* Color visible como respaldo */
+    -webkit-text-stroke: 2px #ff8c00;
+    text-stroke: 2px #ff8c00;
+    /* Fallback para Firefox */
+    -moz-text-stroke: 2px #ff8c00;
+    text-shadow:
+        0 0 5px rgba(255, 140, 0, 0.8),
+        0 0 10px rgba(255, 140, 0, 0.6),
+        0 0 15px rgba(255, 69, 0, 0.4),
+        0 0 20px rgba(255, 69, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    /* Mejor compatibilidad entre navegadores */
+    background: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Fallback para navegadores que no soportan efectos avanzados */
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+/* Animación de entrada del texto */
+.text-in {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Animación de salida del texto */
+.text-out {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+/* Responsive design para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    #animatedText {
+        font-size: 8vw;
+        -webkit-text-stroke: 1px #ff8c00;
+        text-stroke: 1px #ff8c00;
+    }
+}
+
+@media (max-width: 480px) {
+    #animatedText {
+        font-size: 10vw;
+    }
+}

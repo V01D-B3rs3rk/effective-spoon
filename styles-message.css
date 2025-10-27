@@ -1,0 +1,342 @@
+/* Página de Mensaje Romántico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0014 0%, #1a0028 25%, #2a0038 50%, #1a0028 75%, #0a0014 100%);
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Canvas de fondo */
+#messageCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;
+}
+
+/* Contenedor principal del mensaje */
+#messageContainer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Decoración de corazón */
+.heart-decoration {
+    font-size: 4rem;
+    animation: heartbeat 2s ease-in-out infinite;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+}
+
+/* Título principal */
+.main-title {
+    font-size: 3.5vw;
+    font-weight: bold;
+    color: #ff91a4;
+    text-shadow:
+        0 0 10px #ff91a4,
+        0 0 20px rgba(255, 145, 164, 0.8),
+        0 0 30px rgba(255, 145, 164, 0.6),
+        0 0 40px rgba(255, 107, 157, 0.4);
+    margin-bottom: 40px;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+    border: 3px solid rgba(255, 145, 164, 0.5);
+    border-radius: 20px;
+    padding: 20px 40px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 145, 164, 0.1);
+    box-shadow: 0 0 30px rgba(255, 145, 164, 0.4);
+}
+
+/* Contenido del mensaje */
+.message-content {
+    max-width: 900px;
+    width: 90vw;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+
+.love-letter {
+    font-size: 1.6vw;
+    line-height: 1.8;
+    color: #ffccdd;
+    text-shadow:
+        0 0 5px rgba(255, 204, 221, 0.8),
+        0 0 10px rgba(255, 204, 221, 0.4);
+    background: rgba(255, 145, 164, 0.1);
+    border: 2px solid rgba(255, 145, 164, 0.3);
+    border-radius: 25px;
+    padding: 40px;
+    backdrop-filter: blur(15px);
+    box-shadow:
+        0 0 30px rgba(255, 145, 164, 0.3),
+        inset 0 0 30px rgba(255, 145, 164, 0.1);
+    position: relative;
+    width: 100%;
+    max-height: 60vh;
+    overflow-y: auto;
+    text-align: justify;
+}
+
+/* Scrollbar personalizado para el mensaje */
+.love-letter::-webkit-scrollbar {
+    width: 8px;
+}
+
+.love-letter::-webkit-scrollbar-track {
+    background: rgba(255, 145, 164, 0.1);
+    border-radius: 10px;
+}
+
+.love-letter::-webkit-scrollbar-thumb {
+    background: rgba(255, 145, 164, 0.6);
+    border-radius: 10px;
+}
+
+.love-letter::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 145, 164, 0.8);
+}
+
+.love-letter::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff91a4, #ff6b9d, #ff8fab, #ff91a4);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0.5;
+    animation: borderGlow 4s ease-in-out infinite;
+}
+
+.signature {
+    font-style: italic;
+    font-size: 1.5vw;
+    color: #ff91a4;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(255, 145, 164, 0.8);
+    display: block;
+    margin-top: 30px;
+}
+
+/* Contenedor del botón */
+.button-container {
+    margin-top: 30px;
+}
+
+.romantic-button {
+    background: linear-gradient(135deg, #ff91a4 0%, #ff6b9d 50%, #ff8fab 100%);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.2vw;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 5px 15px rgba(255, 107, 157, 0.4),
+        0 0 25px rgba(255, 145, 164, 0.3);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Georgia', serif;
+}
+
+.romantic-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 8px 25px rgba(255, 107, 157, 0.6),
+        0 0 35px rgba(255, 145, 164, 0.5);
+}
+
+.romantic-button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.button-heart {
+    font-size: 1.5vw;
+    animation: buttonHeartbeat 1.5s ease-in-out infinite;
+}
+
+/* Corazones flotantes */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-heart:nth-child(1) { animation-delay: 0s; left: 10%; }
+.floating-heart:nth-child(2) { animation-delay: 1s; left: 20%; }
+.floating-heart:nth-child(3) { animation-delay: 2s; left: 30%; }
+.floating-heart:nth-child(4) { animation-delay: 3s; left: 80%; }
+.floating-heart:nth-child(5) { animation-delay: 4s; left: 90%; }
+
+/* Animaciones */
+@keyframes heartbeat {
+    0%, 50%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+    }
+    25%, 75% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 30px rgba(255, 107, 157, 1));
+    }
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow:
+            0 0 10px #ff91a4,
+            0 0 20px rgba(255, 145, 164, 0.8),
+            0 0 30px rgba(255, 145, 164, 0.6);
+    }
+    100% {
+        text-shadow:
+            0 0 15px #ff91a4,
+            0 0 30px rgba(255, 145, 164, 1),
+            0 0 45px rgba(255, 145, 164, 0.8);
+    }
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.02);
+    }
+}
+
+@keyframes buttonHeartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.7;
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-40px) rotate(180deg);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translateY(-20px) rotate(270deg);
+        opacity: 1;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 6vw;
+        padding: 15px 25px;
+    }
+
+    .love-letter {
+        font-size: 3vw;
+        padding: 25px;
+        max-height: 70vh;
+    }
+
+    .signature {
+        font-size: 3vw;
+    }
+
+    .romantic-button {
+        font-size: 3vw;
+        padding: 12px 30px;
+    }
+
+    .button-heart {
+        font-size: 3vw;
+    }
+
+    .heart-decoration {
+        font-size: 3rem;
+    }
+
+    .message-content {
+        width: 95vw;
+        max-width: none;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 8vw;
+        padding: 10px 20px;
+    }
+
+    .love-letter {
+        font-size: 4vw;
+        padding: 20px;
+        max-height: 75vh;
+        line-height: 1.6;
+    }
+
+    .signature {
+        font-size: 4vw;
+    }
+
+    .romantic-button {
+        font-size: 4vw;
+        padding: 10px 25px;
+    }
+
+    .button-heart {
+        font-size: 4vw;
+    }
+
+    .heart-decoration {
+        font-size: 2.5rem;
+    }
+
+    .message-content {
+        width: 98vw;
+        padding: 0 5px;
+    }
+}

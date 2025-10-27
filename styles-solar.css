@@ -1,0 +1,234 @@
+/* Sistema Solar - Estilos Cósmicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Canvas para el sistema solar */
+#solarCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: radial-gradient(circle at center, #0a0014 0%, #05000f 50%, #000000 100%);
+}
+
+/* Overlay para el texto animado */
+#textOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Texto animado con efectos cósmicos */
+#animatedText {
+    font-size: 4vw;
+    font-weight: bold;
+    color: #ffaa00;
+    text-shadow:
+        0 0 10px #ffaa00,
+        0 0 20px rgba(255, 170, 0, 0.8),
+        0 0 30px rgba(255, 200, 100, 0.6),
+        0 0 40px rgba(255, 150, 0, 0.4),
+        0 0 50px rgba(255, 100, 0, 0.2);
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.8s ease-in-out;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    -webkit-text-stroke: 1px #ff6600;
+    -moz-text-stroke: 1px #ff6600;
+    background: radial-gradient(circle, rgba(255,170,0,0.1) 0%, transparent 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    padding: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,170,0,0.3);
+}
+
+/* Animación de entrada del texto */
+.text-in {
+    opacity: 1;
+    transform: scale(1.2);
+    text-shadow:
+        0 0 15px #ffaa00,
+        0 0 25px rgba(255, 170, 0, 0.9),
+        0 0 35px rgba(255, 200, 100, 0.7),
+        0 0 45px rgba(255, 150, 0, 0.5),
+        0 0 55px rgba(255, 100, 0, 0.3);
+    border-color: rgba(255,170,0,0.6);
+}
+
+/* Animación de salida del texto */
+.text-out {
+    opacity: 0;
+    transform: scale(0.8);
+    border-color: rgba(255,170,0,0.1);
+}
+
+/* Botón de navegación flotante */
+#navigationButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 3;
+}
+
+.floating-nav-button {
+    background: linear-gradient(135deg, #ff91a4 0%, #ff6b9d 50%, #ff8fab 100%);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-size: 1.1vw;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 5px 15px rgba(255, 107, 157, 0.5),
+        0 0 25px rgba(255, 145, 164, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    animation: buttonFloat 3s ease-in-out infinite;
+}
+
+.floating-nav-button:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow:
+        0 8px 25px rgba(255, 107, 157, 0.7),
+        0 0 35px rgba(255, 145, 164, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.floating-nav-button:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.nav-heart {
+    font-size: 1.5vw;
+    animation: heartPulse 2s ease-in-out infinite;
+}
+
+.nav-text {
+    font-family: 'Georgia', serif;
+    letter-spacing: 1px;
+}
+
+/* Animaciones del botón */
+@keyframes buttonFloat {
+    0%, 100% {
+        transform: translateY(0px);
+        box-shadow:
+            0 5px 15px rgba(255, 107, 157, 0.5),
+            0 0 25px rgba(255, 145, 164, 0.4);
+    }
+    50% {
+        transform: translateY(-10px);
+        box-shadow:
+            0 8px 25px rgba(255, 107, 157, 0.7),
+            0 0 35px rgba(255, 145, 164, 0.6);
+    }
+}
+
+@keyframes heartPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.8));
+    }
+    50% {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 15px rgba(255, 107, 157, 1));
+    }
+}
+
+/* Responsive para el botón */
+@media (max-width: 768px) {
+    #navigationButton {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .floating-nav-button {
+        font-size: 2.5vw;
+        padding: 12px 20px;
+    }
+
+    .nav-heart {
+        font-size: 3vw;
+    }
+
+    .nav-text {
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-nav-button {
+        font-size: 3vw;
+        padding: 10px 15px;
+    }
+
+    .nav-heart {
+        font-size: 4vw;
+    }
+
+    .nav-text {
+        font-size: 3vw;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #animatedText {
+        font-size: 6vw;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #animatedText {
+        font-size: 8vw;
+        padding: 10px;
+    }
+}
+
+/* Efectos adicionales para el texto cósmico */
+@keyframes cosmic-pulse {
+    0%, 100% {
+        text-shadow:
+            0 0 10px #ffaa00,
+            0 0 20px rgba(255, 170, 0, 0.8),
+            0 0 30px rgba(255, 200, 100, 0.6);
+    }
+    50% {
+        text-shadow:
+            0 0 15px #ffaa00,
+            0 0 25px rgba(255, 170, 0, 0.9),
+            0 0 40px rgba(255, 200, 100, 0.8),
+            0 0 50px rgba(255, 150, 0, 0.6);
+    }
+}
+
+.text-in {
+    animation: cosmic-pulse 2s ease-in-out infinite;
+}
